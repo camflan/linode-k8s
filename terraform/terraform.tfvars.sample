@@ -1,0 +1,12 @@
+master_count = "1"
+worker_count = "3"
+
+hostname_format = "node-%d"
+
+linode_api_key = "LINODE_API_KEY_HERE"
+root_password = "I_AM_IN_YOUR_MACHINE"
+
+private_key_path = "YOUR/LOCAL/PRIVATE/KEY/PATH"
+public_key_path = "YOUR/LOCAL/PUBLIC/KEY/PATH"
+
+token = "DISCOVERY.TOKEN"
