@@ -1,0 +1,51 @@
+apiVersion: apps/v1beta2
+kind: Deployment
+metadata:
+  name: microbot
+  labels:
+    run: microbot
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      run: microbot
+  template:
+    metadata:
+      labels:
+        run: microbot
+    spec:
+      containers:
+      - name: microbot
+        image: rothgar/microbot:v1
+        ports:
+          - containerPort: 80
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: microbot-service
+  namespace: default
+spec:
+  selector:
+    run: microbot
+  ports:
+    - port: 80
+      targetPort: 80
+
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: microbot-ing
+  namespace: default
+  annotations:
+    kubernetes.io/ingress.class: traefik
+spec:
+  rules:
+  - host: microbot.tapyness.net
+    http:
+      paths:
+      - backend:
+          serviceName: microbot-service
+          servicePort: 80
